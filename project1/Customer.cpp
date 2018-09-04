@@ -3,7 +3,7 @@
 #include <utility>
 
 // Use an initalizer expressions to initalize the class
-Customer::Customer() : name_(), defective_device_(), wait_time_(0) {}
+Customer::Customer() : wait_time_(0) {}
 
 // Use an initalizer expressions to initalize the class
 Customer::Customer(std::string name, std::string device, int wait_time) :

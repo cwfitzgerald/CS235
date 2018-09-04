@@ -8,3 +8,5 @@ include(dependencies/cmake-utils/include/warnings.cmake)
 add_warnings()
 
 add_linted_subdirectory(project1)
+
+configure_linter()
