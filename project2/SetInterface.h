@@ -39,5 +39,4 @@ class SetInterface {
 	/** Fills a vector with all entries that are in this set.
 	 @return  A vector containing all the entries in the set. */
 	virtual std::vector<T> toVector() const = 0;
-
 };
