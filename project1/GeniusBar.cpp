@@ -1,3 +1,14 @@
+/*
+ * project1/GeniusBar.cpp
+ * Connor Fitzgerald
+ * 2018-09-06
+ * CSCI 235
+ * Fall 2018
+ * Project 1
+ *
+ * Implements GeniusBar container class.
+ */
+
 #include "GeniusBar.hpp"
 
 // Initializers

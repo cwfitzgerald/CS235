@@ -1,3 +1,14 @@
+/*
+ * project1/Customer.cpp
+ * Connor Fitzgerald
+ * 2018-09-06
+ * CSCI 235
+ * Fall 2018
+ * Project 1
+ *
+ * Implements Customer container class.
+ */
+
 #include "Customer.hpp"
 #include <string>
 #include <utility>
