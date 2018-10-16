@@ -9,5 +9,6 @@ add_warnings()
 
 add_linted_subdirectory(project1)
 add_linted_subdirectory(project2)
+add_linted_subdirectory(project3)
 
 configure_linter()

@@ -1,4 +1,6 @@
 #include "PlayList.h"
+#include "../project3/PlayList.h"
+
 #include <iostream>
 
 PlayList::PlayList(Song const& a_song) {
