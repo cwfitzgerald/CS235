@@ -1,6 +1,19 @@
+// Assignment: CSCI 235, Fall 2018, Project 3
+// Name: Connor Fitzgerald
+// Date: 2018-10-16
+// File Name: PlayList.cpp
+
 #include "PlayList.h"
-#include <iostream>
 #include <cassert>
+#include <iostream>
+#include <utility>
+
+template<class T, class U = T>
+T exchange(T& obj, U&& new_value) {
+	T old_value = std::move(obj);
+	obj = std::forward<U>(new_value);
+	return old_value;
+}
 
 PlayList::PlayList() : LinkedSet(), tail_ptr_(getPointerToLastNode()) {}
 
@@ -23,7 +36,7 @@ Node<Song>* PlayList::getPointerToLastNode() const {
 	cur = last->getNext();
 
 	while(cur && cur != head_ptr_) {
-		last = std::exchange(cur, cur->getNext());
+		last = exchange(cur, cur->getNext());
 	}
 
 	return last;
@@ -57,10 +70,12 @@ bool PlayList::remove(const Song& a_song) {
 	Node<Song>* prev;
 	Node<Song>* cur = getPointerTo(a_song, prev);
 
+	// Fix tail pointer in all cases
 	if (cur == tail_ptr_) {
 		tail_ptr_ = prev;
 	}
 
+	// Head pointer is a special case
 	if (cur == head_ptr_) {
 		head_ptr_ = cur->getNext();
 
@@ -68,6 +83,8 @@ bool PlayList::remove(const Song& a_song) {
 
 		return true;
 	}
+
+	// All other cases
 	prev->setNext(cur->getNext());
 
 	delete cur;
@@ -82,6 +99,7 @@ void PlayList::loop() {
 }
 
 void PlayList::unloop() {
+	// ignoring value
 	(void) unloopImpl();
 }
 
@@ -109,8 +127,9 @@ Node<Song>* PlayList::getPointerTo(const Song& target, Node<Song>*& previous_ptr
 	Node<Song>* last = head_ptr_;
 	Node<Song>* item = last;
 
+	// Loop until end or until found
 	while (item && !(item->getItem() == target)) {
-		last = std::exchange(item, item->getNext());
+		last = exchange(item, item->getNext());
 	}
 
 	assert(item != nullptr);
