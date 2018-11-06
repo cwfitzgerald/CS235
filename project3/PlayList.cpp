@@ -80,6 +80,8 @@ bool PlayList::remove(const Song& a_song) {
 		head_ptr_ = cur->getNext();
 
 		item_count_ -= 1;
+		
+		delete cur;
 
 		return true;
 	}
