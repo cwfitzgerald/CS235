@@ -27,6 +27,7 @@ bool MazeSolver::mazeIsReady() {
 }
 
 bool MazeSolver::solveMaze() {
+	// decltype(auto) is char&
 	auto const get = [&](Position p) -> char& {
 		return this->maze_[p.row][p.column];
 	};
@@ -35,6 +36,7 @@ bool MazeSolver::solveMaze() {
 
 	extendPath({0, 0});
 
+	// start at 0 0 every 
 	Position cur_pos{ 0, 0 };
 	while (!this->backtrack_stack_.empty()) {
 		if (get(cur_pos) == '$') {
@@ -74,6 +76,7 @@ void MazeSolver::printSolution() {
 }
 
 void MazeSolver::initializeMaze(int rows, int columns) {
+	// Recursion
 	this->maze_ = new char*[rows];
 	this->solution_ = new char*[rows];
 
@@ -87,8 +90,10 @@ void MazeSolver::fillMaze(std::ifstream& input_stream) {
 	input_stream >> this->maze_rows_;
 	input_stream >> this->maze_columns_;
 
+	// Create the arrays
 	initializeMaze(this->maze_rows_, this->maze_columns_);
 
+	// Get every character and put it in its respective place
 	for (std::size_t row = 0; row < this->maze_rows_; ++row) {
 		for (std::size_t col = 0; col < this->maze_columns_; ++col) {
 			// Skip whitespace
@@ -105,6 +110,7 @@ void MazeSolver::initializeSolution() {
 }
 
 void MazeSolver::copyMazetoSolution() {
+	// Only memcpy needed
 	for (std::size_t row = 0; row < this->maze_rows_; ++row) {
 		std::memcpy(solution_[row], maze_[row], this->maze_columns_);
 	}
@@ -116,12 +122,14 @@ bool MazeSolver::extendPath(Position current_position) {
 
 	bool modified = false;
 
+	// Check south first so we follow it second
 	if (south.row < this->maze_rows_ && south.column < this->maze_columns_) {
 		if (maze_[south.row][south.column] == '_' || maze_[east.row][east.column] == '$') {
 			modified = true;
 			this->backtrack_stack_.emplace(std::move(south));
 		}
 	}
+	// Check east second so we follow it first
 	if (east.row < this->maze_rows_ && east.column < this->maze_columns_) {
 		if (maze_[east.row][east.column] == '_' || maze_[east.row][east.column] == '$') {
 			modified = true;
@@ -136,7 +144,7 @@ Position MazeSolver::getNewPosition(Position old_position, direction dir) {
 	// no-op, inline
 	(void) old_position;
 	(void) dir;
-	return Position{};
+	return {};
 }
 
 bool MazeSolver::isExtensible(Position current_position, direction dir) {
